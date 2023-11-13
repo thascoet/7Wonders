@@ -17,6 +17,11 @@ export type Ressource =
     | "loom"
     | "papyrus";
 
+export type RessourceList = (
+    | Exclude<Ressource, "gold">
+    | Exclude<Ressource, "gold">[]
+)[];
+
 export type ScientificRessource = "compas" | "tablet" | "wheel";
 
 export type Action = "build" | "wonder" | "sell";
@@ -50,7 +55,7 @@ export type Wonder = {
     stages: {
         cost: Cost;
         effect: number;
-    };
+    }[];
 };
 
 export type Board = {
@@ -60,7 +65,10 @@ export type Board = {
     gold: number;
     militaryTokens: { [key in MilitaryToken]: number };
     scientificsRessources: { [key in ScientificRessource]: number };
-    ressorcesAvaliable;
+    ressorcesAvaliable: {
+        public: RessourceList;
+        private: RessourceList;
+    };
 };
 
 export type Turn = {
