@@ -966,3 +966,5 @@ const cardsList: Card[] = [
 const cardsMap: Map<number, Card> = new Map();
 
 cardsList.forEach((card) => cardsMap.set(card.id, card));
+
+export { cardsMap };

@@ -92,4 +92,4 @@ export type Effect = {
     immediate: ImmediateEffect;
 };
 
-export type ImmediateEffect = (playerIndex: number, plays: Play[], board: Board) => Board;
+export type ImmediateEffect =  (board: Board) => (playerIndex: number) => Board;
