@@ -58,22 +58,28 @@ export type Wonder = {
     }[];
 };
 
-export type Board = {
+export type PlayerBoard = {
     wonder: number;
-    wonderStagesBuilded: boolean[];
+    wonderStagesBuilded: number;
     cardsBuilded: number[];
     gold: number;
+    militaryPower: number;
     militaryTokens: { [key in MilitaryToken]: number };
     scientificsRessources: { [key in ScientificRessource]: number };
     ressorcesAvaliable: {
         public: RessourceList;
         private: RessourceList;
     };
+    passives: number[];
 };
 
-export type Turn = {
+export type Board = {
+    playersNumber: number;
+    playersBoards: PlayerBoard[];
+};
+
+export type Play = {
     cardPlayed: number;
-    cards: number[];
     action: Action;
     ressource: {
         self: Cost;
@@ -81,3 +87,9 @@ export type Turn = {
         right: Cost;
     };
 };
+
+export type Effect = {
+    immediate: ImmediateEffect;
+};
+
+export type ImmediateEffect = (playerIndex: number, plays: Play[], board: Board) => Board;
