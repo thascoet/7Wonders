@@ -17,12 +17,9 @@ export type Ressource =
     | "loom"
     | "papyrus";
 
-export type RessourceList = (
-    | Exclude<Ressource, "gold">
-    | Exclude<Ressource, "gold">[]
-)[];
+export type RessourceList = Exclude<Ressource, "gold">[][];
 
-export type ScientificRessource = "compas" | "tablet" | "wheel";
+export type ScientificRessource = "compas" | "wheel" | "tablet";
 
 export type Action = "build" | "wonder" | "sell";
 
@@ -43,7 +40,7 @@ export type Card = {
     imgUrl: string;
     cost: Cost;
     chain: number | null;
-    effect: number;
+    effect: Effect;
     chainsProvided: number[];
 };
 
@@ -89,7 +86,10 @@ export type Play = {
 };
 
 export type Effect = {
-    immediate: ImmediateEffect;
+    immediate?: ImmediateEffect;
+    points?:  CountingPointsEffect;
 };
 
-export type ImmediateEffect =  (board: Board) => (playerIndex: number) => Board;
+export type ImmediateEffect =  (board: Board, playerIndex: number) => Board;
+
+export type CountingPointsEffect = number | ((board: Board, playerIndex: number) => number);

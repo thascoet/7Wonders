@@ -1,4 +1,14 @@
+import {
+    addPassiveImmediateEffect,
+    applyFunctionImmediateEffect,
+    concatImmediateEffects,
+    goldImmediateEffect,
+    militaryImmediateEffect,
+    ressourceImmediateEffect,
+    scientificImmediateEffect
+} from "./effect";
 import { Card } from "./type";
+import { countCardsByType, countCardsByTypes, countWonderStagesBuilded, isWonderFinished } from "./utils";
 
 const cardsList: Card[] = [
     {
@@ -8,7 +18,9 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(["wood"], true),
+        },
         chainsProvided: [],
     },
     {
@@ -18,7 +30,9 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(["stone"], true),
+        },
         chainsProvided: [],
     },
     {
@@ -28,7 +42,9 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(["clay"], true),
+        },
         chainsProvided: [],
     },
     {
@@ -38,7 +54,9 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(["ore"], true),
+        },
         chainsProvided: [],
     },
     {
@@ -50,7 +68,9 @@ const cardsList: Card[] = [
             gold: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(["wood", "clay"], true),
+        },
         chainsProvided: [],
     },
     {
@@ -62,7 +82,9 @@ const cardsList: Card[] = [
             gold: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(["stone", "clay"], true),
+        },
         chainsProvided: [],
     },
     {
@@ -74,7 +96,9 @@ const cardsList: Card[] = [
             gold: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(["clay", "ore"], true),
+        },
         chainsProvided: [],
     },
     {
@@ -86,7 +110,9 @@ const cardsList: Card[] = [
             gold: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(["wood", "stone"], true),
+        },
         chainsProvided: [],
     },
     {
@@ -98,7 +124,9 @@ const cardsList: Card[] = [
             gold: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(["wood", "ore"], true),
+        },
         chainsProvided: [],
     },
     {
@@ -110,7 +138,9 @@ const cardsList: Card[] = [
             gold: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(["stone", "ore"], true),
+        },
         chainsProvided: [],
     },
     {
@@ -122,7 +152,12 @@ const cardsList: Card[] = [
             gold: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: concatImmediateEffects(
+                ressourceImmediateEffect(["wood"], true),
+                ressourceImmediateEffect(["wood"], true)
+            ),
+        },
         chainsProvided: [],
     },
     {
@@ -134,7 +169,12 @@ const cardsList: Card[] = [
             gold: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: concatImmediateEffects(
+                ressourceImmediateEffect(["stone"], true),
+                ressourceImmediateEffect(["stone"], true)
+            ),
+        },
         chainsProvided: [],
     },
     {
@@ -146,7 +186,12 @@ const cardsList: Card[] = [
             gold: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: concatImmediateEffects(
+                ressourceImmediateEffect(["clay"], true),
+                ressourceImmediateEffect(["clay"], true)
+            ),
+        },
         chainsProvided: [],
     },
     {
@@ -158,7 +203,12 @@ const cardsList: Card[] = [
             gold: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: concatImmediateEffects(
+                ressourceImmediateEffect(["ore"], true),
+                ressourceImmediateEffect(["ore"], true)
+            ),
+        },
         chainsProvided: [],
     },
     {
@@ -168,7 +218,9 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(["loom"], true),
+        },
         chainsProvided: [],
     },
     {
@@ -178,7 +230,9 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(["glass"], true),
+        },
         chainsProvided: [],
     },
     {
@@ -188,7 +242,9 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(["papyrus"], true),
+        },
         chainsProvided: [],
     },
     {
@@ -198,7 +254,9 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            points: 3,
+        },
         chainsProvided: [0],
     },
     {
@@ -210,7 +268,9 @@ const cardsList: Card[] = [
             stone: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            points: 3,
+        },
         chainsProvided: [1],
     },
     {
@@ -220,7 +280,9 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            points: 3,
+        },
         chainsProvided: [2],
     },
     {
@@ -230,7 +292,9 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            points: 3,
+        },
         chainsProvided: [3],
     },
     {
@@ -243,7 +307,9 @@ const cardsList: Card[] = [
             wood: 1,
         },
         chain: 0,
-        effect: 0,
+        effect: {
+            points: 4,
+        },
         chainsProvided: [],
     },
     {
@@ -255,7 +321,9 @@ const cardsList: Card[] = [
             stone: 3,
         },
         chain: 1,
-        effect: 0,
+        effect: {
+            points: 5,
+        },
         chainsProvided: [],
     },
     {
@@ -269,7 +337,9 @@ const cardsList: Card[] = [
             glass: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            points: 4,
+        },
         chainsProvided: [],
     },
     {
@@ -282,7 +352,9 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: 16,
-        effect: 0,
+        effect: {
+            points: 4,
+        },
         chainsProvided: [],
     },
     {
@@ -298,7 +370,9 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: 2,
-        effect: 0,
+        effect: {
+            points: 7,
+        },
         chainsProvided: [],
     },
     {
@@ -311,7 +385,9 @@ const cardsList: Card[] = [
             wood: 1,
         },
         chain: 3,
-        effect: 0,
+        effect: {
+            points: 5,
+        },
         chainsProvided: [],
     },
     {
@@ -325,7 +401,9 @@ const cardsList: Card[] = [
             glass: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            points: 6,
+        },
         chainsProvided: [],
     },
     {
@@ -343,7 +421,9 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            points: 8,
+        },
         chainsProvided: [],
     },
     {
@@ -357,7 +437,9 @@ const cardsList: Card[] = [
             ore: 1,
         },
         chain: 18,
-        effect: 0,
+        effect: {
+            points: 6,
+        },
         chainsProvided: [],
     },
     {
@@ -367,7 +449,9 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: goldImmediateEffect(5),
+        },
         chainsProvided: [],
     },
     {
@@ -377,7 +461,9 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: addPassiveImmediateEffect(0),
+        },
         chainsProvided: [4],
     },
     {
@@ -387,7 +473,9 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: addPassiveImmediateEffect(0),
+        },
         chainsProvided: [6],
     },
     {
@@ -397,7 +485,9 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: addPassiveImmediateEffect(0),
+        },
         chainsProvided: [6],
     },
     {
@@ -409,7 +499,12 @@ const cardsList: Card[] = [
             wood: 2,
         },
         chain: 4,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(
+                ["wood", "stone", "clay", "ore"],
+                false
+            ),
+        },
         chainsProvided: [5],
     },
     {
@@ -421,7 +516,12 @@ const cardsList: Card[] = [
             clay: 2,
         },
         chain: 6,
-        effect: 0,
+        effect: {
+            immediate: ressourceImmediateEffect(
+                ["loom", "glass", "papyrus"],
+                false
+            ),
+        },
         chainsProvided: [7],
     },
     {
@@ -431,7 +531,12 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: applyFunctionImmediateEffect(
+                countCardsByType("Raw Material", [-1, 0, 1]),
+                goldImmediateEffect
+            ),
+        },
         chainsProvided: [],
     },
     {
@@ -441,7 +546,12 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: applyFunctionImmediateEffect(
+                countCardsByType("Manufactured Goods", [-1, 0, 1], 2),
+                goldImmediateEffect
+            ),
+        },
         chainsProvided: [],
     },
     {
@@ -454,7 +564,13 @@ const cardsList: Card[] = [
             glass: 1,
         },
         chain: 5,
-        effect: 0,
+        effect: {
+            immediate: applyFunctionImmediateEffect(
+                countCardsByType("Commercial Structures", [0]),
+                goldImmediateEffect
+            ),
+            points: countCardsByType("Commercial Structures", [0]),
+        },
         chainsProvided: [],
     },
     {
@@ -468,7 +584,13 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: 7,
-        effect: 0,
+        effect: {
+            immediate: applyFunctionImmediateEffect(
+                countCardsByType("Raw Material", [0]),
+                goldImmediateEffect
+            ),
+            points: countCardsByType("Raw Material", [0]),
+        },
         chainsProvided: [],
     },
     {
@@ -481,7 +603,13 @@ const cardsList: Card[] = [
             papyrus: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: applyFunctionImmediateEffect(
+                countCardsByType("Manufactured Goods", [0], 2),
+                goldImmediateEffect
+            ),
+            points: countCardsByType("Manufactured Goods", [0], 2),
+        },
         chainsProvided: [],
     },
     {
@@ -494,7 +622,13 @@ const cardsList: Card[] = [
             ore: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: applyFunctionImmediateEffect(
+                countCardsByType("Military Structures", [0], 3),
+                goldImmediateEffect
+            ),
+            points: countCardsByType("Military Structures", [0]),
+        },
         chainsProvided: [],
     },
     {
@@ -507,7 +641,13 @@ const cardsList: Card[] = [
             ore: 1,
         },
         chain: 10,
-        effect: 0,
+        effect: {
+            immediate: applyFunctionImmediateEffect(
+                countWonderStagesBuilded([0], 3),
+                goldImmediateEffect
+            ),
+            points: countWonderStagesBuilded([0]),
+        },
         chainsProvided: [],
     },
     {
@@ -519,7 +659,9 @@ const cardsList: Card[] = [
             wood: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: militaryImmediateEffect(1),
+        },
         chainsProvided: [],
     },
     {
@@ -531,7 +673,9 @@ const cardsList: Card[] = [
             ore: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: militaryImmediateEffect(1),
+        },
         chainsProvided: [],
     },
     {
@@ -543,7 +687,9 @@ const cardsList: Card[] = [
             clay: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: militaryImmediateEffect(1),
+        },
         chainsProvided: [],
     },
     {
@@ -557,7 +703,9 @@ const cardsList: Card[] = [
             clay: 1,
         },
         chain: 8,
-        effect: 0,
+        effect: {
+            immediate: militaryImmediateEffect(2),
+        },
         chainsProvided: [],
     },
     {
@@ -570,7 +718,9 @@ const cardsList: Card[] = [
             ore: 1,
         },
         chain: 12,
-        effect: 0,
+        effect: {
+            immediate: militaryImmediateEffect(2),
+        },
         chainsProvided: [],
     },
     {
@@ -582,7 +732,9 @@ const cardsList: Card[] = [
             stone: 3,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: militaryImmediateEffect(2),
+        },
         chainsProvided: [],
     },
     {
@@ -595,7 +747,9 @@ const cardsList: Card[] = [
             wood: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: militaryImmediateEffect(2),
+        },
         chainsProvided: [],
     },
     {
@@ -609,7 +763,9 @@ const cardsList: Card[] = [
             papyrus: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: militaryImmediateEffect(3),
+        },
         chainsProvided: [],
     },
     {
@@ -622,7 +778,9 @@ const cardsList: Card[] = [
             clay: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: militaryImmediateEffect(3),
+        },
         chainsProvided: [],
     },
     {
@@ -635,7 +793,9 @@ const cardsList: Card[] = [
             ore: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: militaryImmediateEffect(3),
+        },
         chainsProvided: [],
     },
     {
@@ -649,7 +809,9 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: militaryImmediateEffect(3),
+        },
         chainsProvided: [],
     },
     {
@@ -662,7 +824,9 @@ const cardsList: Card[] = [
             wood: 1,
         },
         chain: 14,
-        effect: 0,
+        effect: {
+            immediate: militaryImmediateEffect(3),
+        },
         chainsProvided: [],
     },
     {
@@ -674,7 +838,9 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: scientificImmediateEffect("compas"),
+        },
         chainsProvided: [8, 9],
     },
     {
@@ -686,7 +852,9 @@ const cardsList: Card[] = [
             glass: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: scientificImmediateEffect("wheel"),
+        },
         chainsProvided: [12, 13],
     },
     {
@@ -698,7 +866,9 @@ const cardsList: Card[] = [
             papyrus: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: scientificImmediateEffect("tablet"),
+        },
         chainsProvided: [16, 17],
     },
     {
@@ -711,7 +881,9 @@ const cardsList: Card[] = [
             glass: 1,
         },
         chain: 9,
-        effect: 0,
+        effect: {
+            immediate: scientificImmediateEffect("compas"),
+        },
         chainsProvided: [10, 11],
     },
     {
@@ -724,7 +896,9 @@ const cardsList: Card[] = [
             papyrus: 1,
         },
         chain: 13,
-        effect: 0,
+        effect: {
+            immediate: scientificImmediateEffect("wheel"),
+        },
         chainsProvided: [14, 15],
     },
     {
@@ -737,7 +911,9 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: 17,
-        effect: 0,
+        effect: {
+            immediate: scientificImmediateEffect("tablet"),
+        },
         chainsProvided: [18, 19],
     },
     {
@@ -750,7 +926,9 @@ const cardsList: Card[] = [
             papyrus: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: scientificImmediateEffect("tablet"),
+        },
         chainsProvided: [20, 21],
     },
     {
@@ -764,7 +942,9 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: 11,
-        effect: 0,
+        effect: {
+            immediate: scientificImmediateEffect("compas"),
+        },
         chainsProvided: [],
     },
     {
@@ -777,7 +957,9 @@ const cardsList: Card[] = [
             glass: 1,
         },
         chain: 20,
-        effect: 0,
+        effect: {
+            immediate: scientificImmediateEffect("compas"),
+        },
         chainsProvided: [],
     },
     {
@@ -791,7 +973,9 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: 15,
-        effect: 0,
+        effect: {
+            immediate: scientificImmediateEffect("wheel"),
+        },
         chainsProvided: [],
     },
     {
@@ -805,7 +989,9 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: 21,
-        effect: 0,
+        effect: {
+            immediate: scientificImmediateEffect("wheel"),
+        },
         chainsProvided: [],
     },
     {
@@ -819,7 +1005,9 @@ const cardsList: Card[] = [
             papyrus: 1,
         },
         chain: 19,
-        effect: 0,
+        effect: {
+            immediate: scientificImmediateEffect("tablet"),
+        },
         chainsProvided: [],
     },
     {
@@ -834,7 +1022,9 @@ const cardsList: Card[] = [
             clay: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            points: countCardsByType("Scientific Structures", [-1, 1])
+        },
         chainsProvided: [],
     },
     {
@@ -847,7 +1037,9 @@ const cardsList: Card[] = [
             ore: 2,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            points: countCardsByType("Manufactured Goods", [-1, 1], 2)
+        },
         chainsProvided: [],
     },
     {
@@ -861,7 +1053,9 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            points: countCardsByType("Civilian Structures", [-1, 1])
+        },
         chainsProvided: [],
     },
     {
@@ -875,7 +1069,9 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            points: countCardsByType("Commercial Structures", [-1, 1])
+        },
         chainsProvided: [],
     },
     {
@@ -889,7 +1085,9 @@ const cardsList: Card[] = [
             glass: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            points: countWonderStagesBuilded([-1, 0, 1])
+        },
         chainsProvided: [],
     },
     {
@@ -902,7 +1100,9 @@ const cardsList: Card[] = [
             glass: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            points: countCardsByType("Military Structures", [-1, 1])
+        },
         chainsProvided: [],
     },
     {
@@ -916,7 +1116,9 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            points: countCardsByType("Scientific Structures", [-1, 1])
+        },
         chainsProvided: [],
     },
     {
@@ -930,7 +1132,9 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            points: isWonderFinished(7, 0),
+        },
         chainsProvided: [],
     },
     {
@@ -944,7 +1148,9 @@ const cardsList: Card[] = [
             papyrus: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            immediate: addPassiveImmediateEffect(0),
+        },
         chainsProvided: [],
     },
     {
@@ -958,7 +1164,9 @@ const cardsList: Card[] = [
             papyrus: 1,
         },
         chain: null,
-        effect: 0,
+        effect: {
+            points: countCardsByTypes(["Raw Material", "Manufactured Goods", "Guilds"], [0])
+        },
         chainsProvided: [],
     },
 ];
@@ -968,3 +1176,4 @@ const cardsMap: Map<number, Card> = new Map();
 cardsList.forEach((card) => cardsMap.set(card.id, card));
 
 export { cardsMap };
+

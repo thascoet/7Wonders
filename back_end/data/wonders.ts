@@ -371,3 +371,9 @@ const wondersList: Wonder[] = [
         ],
     },
 ];
+
+const wondersMap: Map<number, Wonder> = new Map();
+
+wondersList.forEach((card) => wondersMap.set(card.id, card));
+
+export { wondersMap };
