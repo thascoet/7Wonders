@@ -40,7 +40,8 @@ export type Card = {
     imgUrl: string;
     cost: Cost;
     chain: number | null;
-    effect: Effect;
+    effect: Effect | null;
+    victoryPoint: VictoryPoint;
     chainsProvided: number[];
 };
 
@@ -51,7 +52,8 @@ export type Wonder = {
     startingRessource: Ressource;
     stages: {
         cost: Cost;
-        effect: number;
+        effect: Effect | null;
+        victoryPoint: VictoryPoint;
     }[];
 };
 
@@ -85,11 +87,8 @@ export type Play = {
     };
 };
 
-export type Effect = {
-    immediate?: ImmediateEffect;
-    points?:  CountingPointsEffect;
-};
+export type Effect = (board: Board, playerIndex: number) => Board;
 
-export type ImmediateEffect =  (board: Board, playerIndex: number) => Board;
-
-export type CountingPointsEffect = number | ((board: Board, playerIndex: number) => number);
+export type VictoryPoint =
+    | number
+    | ((board: Board, playerIndex: number) => number);

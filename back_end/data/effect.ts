@@ -1,39 +1,39 @@
 import {
     Board,
-    CountingPointsEffect,
-    ImmediateEffect,
+    Effect,
     Ressource,
     ScientificRessource,
+    VictoryPoint,
 } from "./type";
 
-export const concatImmediateEffects =
+export const concatEffects =
     (
-        initialImmediateEffect: ImmediateEffect,
-        ...immediateEffectsList: ImmediateEffect[]
-    ): ImmediateEffect =>
+        initialEffect: Effect,
+        ...EffectsList: Effect[]
+    ): Effect =>
     (board: Board, playerIndex: number) =>
-        immediateEffectsList.reduce(
-            (currentBoard, currentImmediateEffect) =>
-                currentImmediateEffect(currentBoard, playerIndex),
-            initialImmediateEffect(board, playerIndex)
+        EffectsList.reduce(
+            (currentBoard, currentEffect) =>
+                currentEffect(currentBoard, playerIndex),
+            initialEffect(board, playerIndex)
         );
 
-export const applyFunctionImmediateEffect =
+export const applyFunctionEffect =
     <T>(
         func: (board: Board, playerIndex: number) => T,
-        immediateEffectFunc: (arg: T) => ImmediateEffect
-    ): ImmediateEffect =>
+        EffectFunc: (arg: T) => Effect
+    ): Effect =>
     (board: Board, playerIndex: number) =>
-        immediateEffectFunc(func(board, playerIndex))(board, playerIndex);
+        EffectFunc(func(board, playerIndex))(board, playerIndex);
 
-export const militaryImmediateEffect =
-    (militaryPower: number): ImmediateEffect =>
+export const militaryEffect =
+    (militaryPower: number): Effect =>
     (board: Board, playerIndex: number) => {
         board.playersBoards[playerIndex].militaryPower += militaryPower;
         return board;
     };
 
-export const scientificImmediateEffect =
+export const scientificEffect =
     (scientificRessource: ScientificRessource) =>
     (board: Board, playerIndex: number) => {
         board.playersBoards[playerIndex].scientificsRessources[
@@ -42,18 +42,18 @@ export const scientificImmediateEffect =
         return board;
     };
 
-export const goldImmediateEffect =
-    (gold: number): ImmediateEffect =>
+export const goldEffect =
+    (gold: number): Effect =>
     (board: Board, playerIndex: number) => {
         board.playersBoards[playerIndex].gold += gold;
         return board;
     };
 
-export const ressourceImmediateEffect =
+export const ressourceEffect =
     (
         resources: Exclude<Ressource, "gold">[],
         isPublic: Boolean
-    ): ImmediateEffect =>
+    ): Effect =>
     (board: Board, playerIndex: number) => {
         let resourcesList = isPublic
             ? board.playersBoards[playerIndex].ressorcesAvaliable.public
@@ -62,14 +62,14 @@ export const ressourceImmediateEffect =
         return board;
     };
 
-export const addPassiveImmediateEffect =
-    (passiveId: number): ImmediateEffect =>
+export const addPassiveEffect =
+    (passiveId: number): Effect =>
     (board: Board, playerIndex: number) => {
         board.playersBoards[playerIndex].passives.push(passiveId);
         return board;
     };
 
 export const victoryPoint =
-    (points: number): CountingPointsEffect =>
+    (points: number): VictoryPoint =>
     (_board: Board, _playerIndex: number) =>
         points;

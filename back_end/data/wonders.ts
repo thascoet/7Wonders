@@ -1,3 +1,10 @@
+import {
+    addPassiveEffect,
+    concatEffects,
+    goldEffect,
+    militaryEffect,
+    ressourceEffect,
+} from "./effect";
 import { Wonder } from "./type";
 
 const wondersList: Wonder[] = [
@@ -11,20 +18,23 @@ const wondersList: Wonder[] = [
                 cost: {
                     clay: 2,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 3,
             },
             {
                 cost: {
                     ore: 2,
                     loom: 1,
                 },
-                effect: 0,
+                effect: addPassiveEffect(0),
+                victoryPoint: 0,
             },
             {
                 cost: {
                     wood: 4,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 7,
             },
         ],
     },
@@ -38,14 +48,16 @@ const wondersList: Wonder[] = [
                 cost: {
                     stone: 2,
                 },
-                effect: 0,
+                effect: addPassiveEffect(0),
+                victoryPoint: 0,
             },
             {
                 cost: {
                     clay: 3,
                     glass: 1,
                 },
-                effect: 0,
+                effect: addPassiveEffect(0),
+                victoryPoint: 0,
             },
         ],
     },
@@ -59,20 +71,23 @@ const wondersList: Wonder[] = [
                 cost: {
                     wood: 2,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 3,
             },
             {
                 cost: {
                     clay: 2,
                     loom: 1,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 5,
             },
             {
                 cost: {
                     stone: 4,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 7,
             },
         ],
     },
@@ -86,26 +101,30 @@ const wondersList: Wonder[] = [
                 cost: {
                     wood: 2,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 3,
             },
             {
                 cost: {
                     stone: 3,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 5,
             },
             {
                 cost: {
                     clay: 3,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 5,
             },
             {
                 cost: {
                     stone: 4,
                     papyrus: 1,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 7,
             },
         ],
     },
@@ -119,19 +138,22 @@ const wondersList: Wonder[] = [
                 cost: {
                     stone: 2,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 3,
             },
             {
                 cost: {
                     wood: 2,
                 },
-                effect: 0,
+                effect: addPassiveEffect(0),
+                victoryPoint: 0,
             },
             {
                 cost: {
                     clay: 3,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 0,
             },
         ],
     },
@@ -145,13 +167,15 @@ const wondersList: Wonder[] = [
                 cost: {
                     ore: 2,
                 },
-                effect: 0,
+                effect: addPassiveEffect(0),
+                victoryPoint: 2,
             },
             {
                 cost: {
                     clay: 3,
                 },
-                effect: 0,
+                effect: addPassiveEffect(0),
+                victoryPoint: 3,
             },
             {
                 cost: {
@@ -159,7 +183,8 @@ const wondersList: Wonder[] = [
                     papyrus: 1,
                     loom: 1,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 5,
             },
         ],
     },
@@ -173,19 +198,22 @@ const wondersList: Wonder[] = [
                 cost: {
                     wood: 2,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 3,
             },
             {
                 cost: {
                     clay: 3,
                 },
-                effect: 0,
+                effect: militaryEffect(2),
+                victoryPoint: 0,
             },
             {
                 cost: {
                     ore: 4,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 7,
             },
         ],
     },
@@ -199,13 +227,15 @@ const wondersList: Wonder[] = [
                 cost: {
                     stone: 3,
                 },
-                effect: 0,
+                effect: concatEffects(militaryEffect(1), goldEffect(3)),
+                victoryPoint: 3,
             },
             {
                 cost: {
                     ore: 4,
                 },
-                effect: 0,
+                effect: concatEffects(militaryEffect(1), goldEffect(4)),
+                victoryPoint: 4,
             },
         ],
     },
@@ -219,20 +249,26 @@ const wondersList: Wonder[] = [
                 cost: {
                     stone: 2,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 3,
             },
             {
                 cost: {
                     ore: 2,
                 },
-                effect: 0,
+                effect: ressourceEffect(
+                    ["wood", "stone", "ore", "clay"],
+                    false
+                ),
+                victoryPoint: 0,
             },
             {
                 cost: {
                     papyrus: 1,
                     loom: 1,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 7,
             },
         ],
     },
@@ -246,19 +282,25 @@ const wondersList: Wonder[] = [
                 cost: {
                     clay: 2,
                 },
-                effect: 0,
+                effect: ressourceEffect(
+                    ["wood", "stone", "ore", "clay"],
+                    false
+                ),
+                victoryPoint: 0,
             },
             {
                 cost: {
                     ore: 3,
                 },
-                effect: 0,
+                effect: ressourceEffect(["glass", "papyrus", "loom"], false),
+                victoryPoint: 0,
             },
             {
                 cost: {
                     wood: 4,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 7,
             },
         ],
     },
@@ -272,20 +314,23 @@ const wondersList: Wonder[] = [
                 cost: {
                     ore: 2,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 3,
             },
             {
                 cost: {
                     glass: 1,
                     papyrus: 1,
                 },
-                effect: 0,
+                effect: addPassiveEffect(0),
+                victoryPoint: 0,
             },
             {
                 cost: {
                     stone: 3,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 7,
             },
         ],
     },
@@ -299,20 +344,23 @@ const wondersList: Wonder[] = [
                 cost: {
                     clay: 2,
                 },
-                effect: 0,
+                effect: addPassiveEffect(0),
+                victoryPoint: 2,
             },
             {
                 cost: {
                     glass: 1,
                     papyrus: 1,
                 },
-                effect: 0,
+                effect: addPassiveEffect(0),
+                victoryPoint: 1,
             },
             {
                 cost: {
                     wood: 3,
                 },
-                effect: 0,
+                effect: addPassiveEffect(0),
+                victoryPoint: 0,
             },
         ],
     },
@@ -326,20 +374,23 @@ const wondersList: Wonder[] = [
                 cost: {
                     clay: 2,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 3,
             },
             {
                 cost: {
                     wood: 2,
                 },
-                effect: 0,
+                effect: goldEffect(9),
+                victoryPoint: 0,
             },
             {
                 cost: {
                     ore: 2,
                     glass: 1,
                 },
-                effect: 0,
+                effect: null,
+                victoryPoint: 7,
             },
         ],
     },
@@ -353,20 +404,23 @@ const wondersList: Wonder[] = [
                 cost: {
                     stone: 2,
                 },
-                effect: 0,
+                effect: goldEffect(4),
+                victoryPoint: 2,
             },
             {
                 cost: {
                     wood: 2,
                 },
-                effect: 0,
+                effect: goldEffect(4),
+                victoryPoint: 3,
             },
             {
                 cost: {
                     ore: 2,
                     loom: 1,
                 },
-                effect: 0,
+                effect: goldEffect(4),
+                victoryPoint: 5,
             },
         ],
     },
