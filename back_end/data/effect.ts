@@ -1,28 +1,16 @@
-import {
-    Board,
-    Effect,
-    Ressource,
-    ScientificRessource,
-    VictoryPoint,
-} from "./type";
+import { Board, Effect, Event, Passive, Resource, ResourcesList, ScientificRessource, VictoryPoint } from "./type";
+import { sortRessourceList } from "./utils";
 
 export const concatEffects =
-    (
-        initialEffect: Effect,
-        ...EffectsList: Effect[]
-    ): Effect =>
+    (initialEffect: Effect, ...EffectsList: Effect[]): Effect =>
     (board: Board, playerIndex: number) =>
         EffectsList.reduce(
-            (currentBoard, currentEffect) =>
-                currentEffect(currentBoard, playerIndex),
+            (currentBoard, currentEffect) => currentEffect(currentBoard, playerIndex),
             initialEffect(board, playerIndex)
         );
 
 export const applyFunctionEffect =
-    <T>(
-        func: (board: Board, playerIndex: number) => T,
-        EffectFunc: (arg: T) => Effect
-    ): Effect =>
+    <T>(func: (board: Board, playerIndex: number) => T, EffectFunc: (arg: T) => Effect): Effect =>
     (board: Board, playerIndex: number) =>
         EffectFunc(func(board, playerIndex))(board, playerIndex);
 
@@ -33,14 +21,10 @@ export const militaryEffect =
         return board;
     };
 
-export const scientificEffect =
-    (scientificRessource: ScientificRessource) =>
-    (board: Board, playerIndex: number) => {
-        board.playersBoards[playerIndex].scientificsRessources[
-            scientificRessource
-        ] += 1;
-        return board;
-    };
+export const scientificEffect = (scientificRessource: ScientificRessource) => (board: Board, playerIndex: number) => {
+    board.playersBoards[playerIndex].scientificsRessources[scientificRessource] += 1;
+    return board;
+};
 
 export const goldEffect =
     (gold: number): Effect =>
@@ -50,25 +34,30 @@ export const goldEffect =
     };
 
 export const ressourceEffect =
-    (
-        resources: Exclude<Ressource, "gold">[],
-        isPublic: Boolean
-    ): Effect =>
+    (resources: Resource[], isPublic: Boolean): Effect =>
     (board: Board, playerIndex: number) => {
-        let resourcesList = isPublic
-            ? board.playersBoards[playerIndex].ressorcesAvaliable.public
-            : board.playersBoards[playerIndex].ressorcesAvaliable.private;
+        let resourcesList: ResourcesList = isPublic
+            ? board.playersBoards[playerIndex].publicResources
+            : board.playersBoards[playerIndex].privateResources;
         resourcesList.push(resources);
+        sortRessourceList(resourcesList);
         return board;
     };
 
 export const addPassiveEffect =
-    (passiveId: number): Effect =>
+    (passive: Passive): Effect =>
     (board: Board, playerIndex: number) => {
-        board.playersBoards[playerIndex].passives.push(passiveId);
+        board.playersBoards[playerIndex].passives.push(passive);
         return board;
     };
 
+export const triggerEventEffect = (unknownPlayerEvent: Omit<Event, "playerIndex">) => (board: Board, playerIndex: number) => {
+    board.events.push({
+        playerIndex,
+        ...unknownPlayerEvent,
+    });
+    return board;
+};
 export const victoryPoint =
     (points: number): VictoryPoint =>
     (_board: Board, _playerIndex: number) =>

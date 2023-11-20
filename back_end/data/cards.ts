@@ -8,18 +8,13 @@ import {
     scientificEffect,
 } from "./effect";
 import { Card } from "./type";
-import {
-    countCardsByType,
-    countCardsByTypes,
-    countWonderStagesBuilded,
-    isWonderFinished,
-} from "./utils";
+import { countCardsByType, countCardsByTypes, countWonderStagesBuilded, isWonderFinished } from "./utils";
 
 const cardsList: Card[] = [
     {
         id: 0,
         name: "LUMBER YARD",
-        type: "Raw Material",
+        type: "Raw Materials",
         imgUrl: "",
         cost: null,
         chain: null,
@@ -30,7 +25,7 @@ const cardsList: Card[] = [
     {
         id: 1,
         name: "STONE PIT",
-        type: "Raw Material",
+        type: "Raw Materials",
         imgUrl: "",
         cost: null,
         chain: null,
@@ -41,7 +36,7 @@ const cardsList: Card[] = [
     {
         id: 2,
         name: "CLAY POOL",
-        type: "Raw Material",
+        type: "Raw Materials",
         imgUrl: "",
         cost: null,
         chain: null,
@@ -52,7 +47,7 @@ const cardsList: Card[] = [
     {
         id: 3,
         name: "ORE VEIN",
-        type: "Raw Material",
+        type: "Raw Materials",
         imgUrl: "",
         cost: null,
         chain: null,
@@ -63,7 +58,7 @@ const cardsList: Card[] = [
     {
         id: 4,
         name: "TREE FARM",
-        type: "Raw Material",
+        type: "Raw Materials",
         imgUrl: "",
         cost: {
             gold: 1,
@@ -76,7 +71,7 @@ const cardsList: Card[] = [
     {
         id: 5,
         name: "EXCAVATION",
-        type: "Raw Material",
+        type: "Raw Materials",
         imgUrl: "",
         cost: {
             gold: 1,
@@ -89,7 +84,7 @@ const cardsList: Card[] = [
     {
         id: 6,
         name: "CLAY PIT",
-        type: "Raw Material",
+        type: "Raw Materials",
         imgUrl: "",
         cost: {
             gold: 1,
@@ -102,7 +97,7 @@ const cardsList: Card[] = [
     {
         id: 7,
         name: "TIMBER YARD",
-        type: "Raw Material",
+        type: "Raw Materials",
         imgUrl: "",
         cost: {
             gold: 1,
@@ -115,7 +110,7 @@ const cardsList: Card[] = [
     {
         id: 8,
         name: "FOREST CAVE",
-        type: "Raw Material",
+        type: "Raw Materials",
         imgUrl: "",
         cost: {
             gold: 1,
@@ -128,7 +123,7 @@ const cardsList: Card[] = [
     {
         id: 9,
         name: "CAVE",
-        type: "Raw Material",
+        type: "Raw Materials",
         imgUrl: "",
         cost: {
             gold: 1,
@@ -141,64 +136,52 @@ const cardsList: Card[] = [
     {
         id: 10,
         name: "SAWMILL",
-        type: "Raw Material",
+        type: "Raw Materials",
         imgUrl: "",
         cost: {
             gold: 1,
         },
         chain: null,
-        effect: concatEffects(
-            ressourceEffect(["wood"], true),
-            ressourceEffect(["wood"], true)
-        ),
+        effect: concatEffects(ressourceEffect(["wood"], true), ressourceEffect(["wood"], true)),
         victoryPoint: 0,
         chainsProvided: [],
     },
     {
         id: 11,
         name: "QUARRY",
-        type: "Raw Material",
+        type: "Raw Materials",
         imgUrl: "",
         cost: {
             gold: 1,
         },
         chain: null,
-        effect: concatEffects(
-            ressourceEffect(["stone"], true),
-            ressourceEffect(["stone"], true)
-        ),
+        effect: concatEffects(ressourceEffect(["stone"], true), ressourceEffect(["stone"], true)),
         victoryPoint: 0,
         chainsProvided: [],
     },
     {
         id: 12,
         name: "BRICKYARD",
-        type: "Raw Material",
+        type: "Raw Materials",
         imgUrl: "",
         cost: {
             gold: 1,
         },
         chain: null,
-        effect: concatEffects(
-            ressourceEffect(["clay"], true),
-            ressourceEffect(["clay"], true)
-        ),
+        effect: concatEffects(ressourceEffect(["clay"], true), ressourceEffect(["clay"], true)),
         victoryPoint: 0,
         chainsProvided: [],
     },
     {
         id: 13,
         name: "FOUNDRY",
-        type: "Raw Material",
+        type: "Raw Materials",
         imgUrl: "",
         cost: {
             gold: 1,
         },
         chain: null,
-        effect: concatEffects(
-            ressourceEffect(["ore"], true),
-            ressourceEffect(["ore"], true)
-        ),
+        effect: concatEffects(ressourceEffect(["ore"], true), ressourceEffect(["ore"], true)),
         victoryPoint: 0,
         chainsProvided: [],
     },
@@ -435,7 +418,7 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: addPassiveEffect(0),
+        effect: addPassiveEffect("Manufactured Goods Discount"),
         victoryPoint: 0,
         chainsProvided: [4],
     },
@@ -446,7 +429,7 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: addPassiveEffect(0),
+        effect: addPassiveEffect("West Raw Materials Discount"),
         victoryPoint: 0,
         chainsProvided: [6],
     },
@@ -457,7 +440,7 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: addPassiveEffect(0),
+        effect: addPassiveEffect("East Raw Materials Discount"),
         victoryPoint: 0,
         chainsProvided: [6],
     },
@@ -470,10 +453,7 @@ const cardsList: Card[] = [
             wood: 2,
         },
         chain: 4,
-        effect: ressourceEffect(
-            ["wood", "stone", "clay", "ore"],
-            false
-        ),
+        effect: ressourceEffect(["wood", "stone", "clay", "ore"], false),
         victoryPoint: 0,
         chainsProvided: [5],
     },
@@ -497,10 +477,7 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: applyFunctionEffect(
-            countCardsByType("Raw Material", [-1, 0, 1]),
-            goldEffect
-        ),
+        effect: applyFunctionEffect(countCardsByType("Raw Materials", [-1, 0, 1]), goldEffect),
         victoryPoint: 0,
         chainsProvided: [],
     },
@@ -511,10 +488,7 @@ const cardsList: Card[] = [
         imgUrl: "",
         cost: null,
         chain: null,
-        effect: applyFunctionEffect(
-            countCardsByType("Manufactured Goods", [-1, 0, 1], 2),
-            goldEffect
-        ),
+        effect: applyFunctionEffect(countCardsByType("Manufactured Goods", [-1, 0, 1], 2), goldEffect),
         victoryPoint: 0,
         chainsProvided: [],
     },
@@ -528,12 +502,8 @@ const cardsList: Card[] = [
             glass: 1,
         },
         chain: 5,
-        effect: applyFunctionEffect(
-            countCardsByType("Commercial Structures", [0]),
-            goldEffect
-        ),
+        effect: applyFunctionEffect(countCardsByType("Commercial Structures", [0]), goldEffect),
         victoryPoint: countCardsByType("Commercial Structures", [0]),
-
         chainsProvided: [],
     },
     {
@@ -547,11 +517,8 @@ const cardsList: Card[] = [
             loom: 1,
         },
         chain: 7,
-        effect: applyFunctionEffect(
-            countCardsByType("Raw Material", [0]),
-            goldEffect
-        ),
-        victoryPoint: countCardsByType("Raw Material", [0]),
+        effect: applyFunctionEffect(countCardsByType("Raw Materials", [0]), goldEffect),
+        victoryPoint: countCardsByType("Raw Materials", [0]),
         chainsProvided: [],
     },
     {
@@ -564,10 +531,7 @@ const cardsList: Card[] = [
             papyrus: 1,
         },
         chain: null,
-        effect: applyFunctionEffect(
-            countCardsByType("Manufactured Goods", [0], 2),
-            goldEffect
-        ),
+        effect: applyFunctionEffect(countCardsByType("Manufactured Goods", [0], 2), goldEffect),
         victoryPoint: countCardsByType("Manufactured Goods", [0], 2),
         chainsProvided: [],
     },
@@ -581,10 +545,7 @@ const cardsList: Card[] = [
             ore: 1,
         },
         chain: null,
-        effect: applyFunctionEffect(
-            countCardsByType("Military Structures", [0], 3),
-            goldEffect
-        ),
+        effect: applyFunctionEffect(countCardsByType("Military Structures", [0], 3), goldEffect),
         victoryPoint: countCardsByType("Military Structures", [0]),
         chainsProvided: [],
     },
@@ -598,10 +559,7 @@ const cardsList: Card[] = [
             ore: 1,
         },
         chain: 10,
-        effect: applyFunctionEffect(
-            countWonderStagesBuilded([0], 3),
-            goldEffect
-        ),
+        effect: applyFunctionEffect(countWonderStagesBuilded([0], 3), goldEffect),
         victoryPoint: countWonderStagesBuilded([0]),
         chainsProvided: [],
     },
@@ -954,7 +912,7 @@ const cardsList: Card[] = [
         },
         chain: null,
         effect: null,
-        victoryPoint: countCardsByType("Scientific Structures", [-1, 1]),
+        victoryPoint: countCardsByType("Raw Materials", [-1, 1]),
         chainsProvided: [],
     },
     {
@@ -1071,7 +1029,7 @@ const cardsList: Card[] = [
             papyrus: 1,
         },
         chain: null,
-        effect: addPassiveEffect(0),
+        effect: addPassiveEffect("Bonus Scientific Resource"),
         victoryPoint: 0,
         chainsProvided: [],
     },
@@ -1087,10 +1045,7 @@ const cardsList: Card[] = [
         },
         chain: null,
         effect: null,
-        victoryPoint: countCardsByTypes(
-            ["Raw Material", "Manufactured Goods", "Guilds"],
-            [0]
-        ),
+        victoryPoint: countCardsByTypes(["Raw Materials", "Manufactured Goods", "Guilds"], [0]),
         chainsProvided: [],
     },
 ];

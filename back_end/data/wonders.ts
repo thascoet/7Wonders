@@ -4,6 +4,7 @@ import {
     goldEffect,
     militaryEffect,
     ressourceEffect,
+    triggerEventEffect,
 } from "./effect";
 import { Wonder } from "./type";
 
@@ -26,7 +27,7 @@ const wondersList: Wonder[] = [
                     ore: 2,
                     loom: 1,
                 },
-                effect: addPassiveEffect(0),
+                effect: addPassiveEffect("Bonus Scientific Resource"),
                 victoryPoint: 0,
             },
             {
@@ -48,7 +49,7 @@ const wondersList: Wonder[] = [
                 cost: {
                     stone: 2,
                 },
-                effect: addPassiveEffect(0),
+                effect: addPassiveEffect("Last Card Played"),
                 victoryPoint: 0,
             },
             {
@@ -56,7 +57,7 @@ const wondersList: Wonder[] = [
                     clay: 3,
                     glass: 1,
                 },
-                effect: addPassiveEffect(0),
+                effect: addPassiveEffect("Bonus Scientific Resource"),
                 victoryPoint: 0,
             },
         ],
@@ -145,7 +146,7 @@ const wondersList: Wonder[] = [
                 cost: {
                     wood: 2,
                 },
-                effect: addPassiveEffect(0),
+                effect: addPassiveEffect("Free Card First Color"),
                 victoryPoint: 0,
             },
             {
@@ -167,14 +168,14 @@ const wondersList: Wonder[] = [
                 cost: {
                     ore: 2,
                 },
-                effect: addPassiveEffect(0),
+                effect: addPassiveEffect("Free Card First Age"),
                 victoryPoint: 2,
             },
             {
                 cost: {
                     clay: 3,
                 },
-                effect: addPassiveEffect(0),
+                effect: addPassiveEffect("Free Card Last Age"),
                 victoryPoint: 3,
             },
             {
@@ -256,10 +257,7 @@ const wondersList: Wonder[] = [
                 cost: {
                     ore: 2,
                 },
-                effect: ressourceEffect(
-                    ["wood", "stone", "ore", "clay"],
-                    false
-                ),
+                effect: ressourceEffect(["wood", "stone", "ore", "clay"], false),
                 victoryPoint: 0,
             },
             {
@@ -282,10 +280,7 @@ const wondersList: Wonder[] = [
                 cost: {
                     clay: 2,
                 },
-                effect: ressourceEffect(
-                    ["wood", "stone", "ore", "clay"],
-                    false
-                ),
+                effect: ressourceEffect(["wood", "stone", "ore", "clay"], false),
                 victoryPoint: 0,
             },
             {
@@ -322,7 +317,7 @@ const wondersList: Wonder[] = [
                     glass: 1,
                     papyrus: 1,
                 },
-                effect: addPassiveEffect(0),
+                effect: triggerEventEffect({ type: "Free Build From Discard", priority: 0 }),
                 victoryPoint: 0,
             },
             {
@@ -344,7 +339,7 @@ const wondersList: Wonder[] = [
                 cost: {
                     clay: 2,
                 },
-                effect: addPassiveEffect(0),
+                effect: triggerEventEffect({ type: "Free Build From Discard", priority: 0 }),
                 victoryPoint: 2,
             },
             {
@@ -352,14 +347,14 @@ const wondersList: Wonder[] = [
                     glass: 1,
                     papyrus: 1,
                 },
-                effect: addPassiveEffect(0),
+                effect: triggerEventEffect({ type: "Free Build From Discard", priority: 0 }),
                 victoryPoint: 1,
             },
             {
                 cost: {
                     wood: 3,
                 },
-                effect: addPassiveEffect(0),
+                effect: triggerEventEffect({ type: "Free Build From Discard", priority: 0 }),
                 victoryPoint: 0,
             },
         ],
