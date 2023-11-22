@@ -17,3 +17,30 @@ export const getFromMap =
 
         return map.get(key) as V;
     };
+
+export class AutoIncrementMap<T> {
+    private map: Map<number, T>;
+    private index: number;
+
+    constructor(staringIndex: number = 0) {
+        this.map = new Map();
+        this.index = staringIndex;
+    }
+
+    toArray(): [number, T][] {
+        return Array.from(this.map.entries());
+    }
+
+    push(t: T): void {
+        this.map.set(this.index, t);
+        this.index++;
+    }
+
+    get(i: number): T | undefined {
+        return this.map.get(i);
+    }
+
+    has(i: number): boolean {
+        return this.map.has(i);
+    }
+}

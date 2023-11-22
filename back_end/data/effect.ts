@@ -1,5 +1,4 @@
-import { Board, Effect, Event, Passive, Resource, ResourcesList, ScientificRessource, VictoryPoint } from "./type";
-import { sortRessourceList } from "./utils";
+import { Board, Effect, Event, Passive, ResourceProvided, ScientificRessource, VictoryPoint } from "./type";
 
 export const concatEffects =
     (initialEffect: Effect, ...EffectsList: Effect[]): Effect =>
@@ -34,13 +33,9 @@ export const goldEffect =
     };
 
 export const ressourceEffect =
-    (resources: Resource[], isPublic: Boolean): Effect =>
+    (resourceProvided: ResourceProvided): Effect =>
     (board: Board, playerIndex: number) => {
-        let resourcesList: ResourcesList = isPublic
-            ? board.playersBoards[playerIndex].publicResources
-            : board.playersBoards[playerIndex].privateResources;
-        resourcesList.push(resources);
-        sortRessourceList(resourcesList);
+        board.playersBoards[playerIndex].resources.push(resourceProvided);
         return board;
     };
 

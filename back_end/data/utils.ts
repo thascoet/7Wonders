@@ -1,6 +1,6 @@
 import { getFromMap, min, mod } from "../utils/utils";
 import { cardsMap } from "./cards";
-import { Board, CardType, Resource, ResourcesList } from "./type";
+import { Board, CardType, Cost, Resource, ResourcesList } from "./type";
 import { wondersMap } from "./wonders";
 
 export const countCardsByType =
@@ -48,27 +48,10 @@ export const isWonderFinished =
             ? finishedValue
             : notFinishedValue;
 
-const compareRessources = (resource1: Resource, resource2: Resource): number => {
-    if (resource1 === resource2) return 0;
-    if (resource1 === "wood") return -1;
-    if (resource2 === "wood") return 1;
-    if (resource1 === "stone") return -1;
-    if (resource2 === "stone") return 1;
-    if (resource1 === "clay") return -1;
-    if (resource2 === "clay") return 1;
-    if (resource1 === "ore") return -1;
-    if (resource2 === "ore") return 1;
-    if (resource1 === "glass") return -1;
-    if (resource2 === "glass") return 1;
-    if (resource1 === "papyrus") return -1;
-    if (resource2 === "papyrus") return 1;
-    return 0;
-};
+export const costToArray = (cost: Cost): number[] => {
+    if (cost === null) return Array<number>(8).fill(0);
 
-export const sortRessourceList = (ressourceList: ResourcesList): ResourcesList =>
-    ressourceList.sort((resources1: Resource[], resources2: Resource[]) =>
-        compareRessources(
-            min<Resource>(compareRessources, "loom")(resources1),
-            min<Resource>(compareRessources, "loom")(resources2)
-        )
+    return (["gold", "wood", "stone", "clay", "ore", "glass", "loom", "papyrus"] as (Resource | "gold")[]).map(
+        (resource) => (cost[resource] !== undefined ? (cost[resource] as number) : 0)
     );
+};

@@ -13,7 +13,7 @@ const wondersList: Wonder[] = [
         id: 0,
         name: "BABYLON",
         side: "day",
-        startingRessource: "wood",
+        startingEffect: ressourceEffect({ resources: ["wood"], public: true, starting: true }),
         stages: [
             {
                 cost: {
@@ -43,7 +43,7 @@ const wondersList: Wonder[] = [
         id: 1,
         name: "BABYLON",
         side: "night",
-        startingRessource: "wood",
+        startingEffect: ressourceEffect({ resources: ["wood"], public: true, starting: true }),
         stages: [
             {
                 cost: {
@@ -66,7 +66,7 @@ const wondersList: Wonder[] = [
         id: 2,
         name: "GIZAH",
         side: "day",
-        startingRessource: "stone",
+        startingEffect: ressourceEffect({ resources: ["stone"], public: true, starting: true }),
         stages: [
             {
                 cost: {
@@ -96,7 +96,7 @@ const wondersList: Wonder[] = [
         id: 3,
         name: "GIZAH",
         side: "night",
-        startingRessource: "stone",
+        startingEffect: ressourceEffect({ resources: ["stone"], public: true, starting: true }),
         stages: [
             {
                 cost: {
@@ -133,7 +133,7 @@ const wondersList: Wonder[] = [
         id: 4,
         name: "OLYMPIA",
         side: "day",
-        startingRessource: "clay",
+        startingEffect: ressourceEffect({ resources: ["clay"], public: true, starting: true }),
         stages: [
             {
                 cost: {
@@ -162,7 +162,7 @@ const wondersList: Wonder[] = [
         id: 5,
         name: "OLYMPIA",
         side: "night",
-        startingRessource: "clay",
+        startingEffect: ressourceEffect({ resources: ["clay"], public: true, starting: true }),
         stages: [
             {
                 cost: {
@@ -193,7 +193,7 @@ const wondersList: Wonder[] = [
         id: 6,
         name: "RHODOS",
         side: "day",
-        startingRessource: "ore",
+        startingEffect: ressourceEffect({ resources: ["ore"], public: true, starting: true }),
         stages: [
             {
                 cost: {
@@ -222,7 +222,7 @@ const wondersList: Wonder[] = [
         id: 7,
         name: "RHODOS",
         side: "night",
-        startingRessource: "ore",
+        startingEffect: ressourceEffect({ resources: ["ore"], public: true, starting: true }),
         stages: [
             {
                 cost: {
@@ -244,7 +244,7 @@ const wondersList: Wonder[] = [
         id: 8,
         name: "ALEXANDRIA",
         side: "day",
-        startingRessource: "glass",
+        startingEffect: ressourceEffect({ resources: ["glass"], public: true, starting: true }),
         stages: [
             {
                 cost: {
@@ -257,7 +257,11 @@ const wondersList: Wonder[] = [
                 cost: {
                     ore: 2,
                 },
-                effect: ressourceEffect(["wood", "stone", "ore", "clay"], false),
+                effect: ressourceEffect({
+                    resources: ["wood", "stone", "clay", "ore"],
+                    public: false,
+                    starting: false,
+                }),
                 victoryPoint: 0,
             },
             {
@@ -274,20 +278,24 @@ const wondersList: Wonder[] = [
         id: 9,
         name: "ALEXANDRIA",
         side: "night",
-        startingRessource: "glass",
+        startingEffect: ressourceEffect({ resources: ["glass"], public: true, starting: true }),
         stages: [
             {
                 cost: {
                     clay: 2,
                 },
-                effect: ressourceEffect(["wood", "stone", "ore", "clay"], false),
+                effect: ressourceEffect({
+                    resources: ["wood", "stone", "clay", "ore"],
+                    public: false,
+                    starting: false,
+                }),
                 victoryPoint: 0,
             },
             {
                 cost: {
                     ore: 3,
                 },
-                effect: ressourceEffect(["glass", "papyrus", "loom"], false),
+                effect: ressourceEffect({ resources: ["glass", "loom", "papyrus"], public: false, starting: false }),
                 victoryPoint: 0,
             },
             {
@@ -303,7 +311,7 @@ const wondersList: Wonder[] = [
         id: 10,
         name: "HALIKARNASSOS",
         side: "day",
-        startingRessource: "loom",
+        startingEffect: ressourceEffect({ resources: ["loom"], public: true, starting: true }),
         stages: [
             {
                 cost: {
@@ -333,7 +341,7 @@ const wondersList: Wonder[] = [
         id: 11,
         name: "HALIKARNASSOS",
         side: "night",
-        startingRessource: "loom",
+        startingEffect: ressourceEffect({ resources: ["loom"], public: true, starting: true }),
         stages: [
             {
                 cost: {
@@ -363,7 +371,7 @@ const wondersList: Wonder[] = [
         id: 12,
         name: "EPHESOS",
         side: "day",
-        startingRessource: "papyrus",
+        startingEffect: ressourceEffect({ resources: ["papyrus"], public: true, starting: true }),
         stages: [
             {
                 cost: {
@@ -393,7 +401,7 @@ const wondersList: Wonder[] = [
         id: 13,
         name: "EPHESOS",
         side: "night",
-        startingRessource: "papyrus",
+        startingEffect: ressourceEffect({ resources: ["papyrus"], public: true, starting: true }),
         stages: [
             {
                 cost: {

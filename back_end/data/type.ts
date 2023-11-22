@@ -1,3 +1,5 @@
+import { AutoIncrementMap } from "../utils/utils";
+
 export type CardType =
     | "Raw Materials"
     | "Manufactured Goods"
@@ -9,7 +11,13 @@ export type CardType =
 
 export type Resource = "wood" | "stone" | "clay" | "ore" | "glass" | "loom" | "papyrus";
 
-export type ResourcesList = Resource[][];
+export type ResourceProvided = {
+    resources: Resource[];
+    public: boolean;
+    starting: boolean;
+};
+
+export type ResourcesList = AutoIncrementMap<ResourceProvided>;
 
 export type ScientificRessource = "compas" | "wheel" | "tablet";
 
@@ -37,7 +45,7 @@ export type Wonder = {
     id: number;
     name: string;
     side: Side;
-    startingRessource: Resource;
+    startingEffect: Effect;
     stages: {
         cost: Cost;
         effect: Effect | null;
@@ -54,6 +62,7 @@ export type PlayerBoard = {
     militaryPower: number;
     militaryTokens: { [key in MilitaryToken]: number };
     scientificsRessources: { [key in ScientificRessource]: number };
+    resources: ResourcesList;
     publicResources: ResourcesList;
     privateResources: ResourcesList;
     passives: Passive[];
@@ -66,14 +75,17 @@ export type Board = {
     events: Event[];
 };
 
+export type ResourceUsed = {
+    scope: number;
+    resourceIndex: number;
+    resource: Resource;
+    gold: number;
+};
+
 export type Play = {
     cardPlayed: number;
     action: Action;
-    ressource: {
-        self: Cost;
-        left: Cost;
-        right: Cost;
-    };
+    resources: ResourceUsed[];
 };
 
 export type Effect = (board: Board, playerIndex: number) => Board;
